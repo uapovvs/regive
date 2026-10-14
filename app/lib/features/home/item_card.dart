@@ -75,31 +75,40 @@ class ItemCard extends StatelessWidget {
                 Positioned(
                   top: 8,
                   right: 8,
-                  child: GestureDetector(
+                  child: Semantics(
+                    container: true,
+                    button: true,
+                    label: isFavorite
+                        ? 'Убрать из избранного'
+                        : 'Добавить в избранное',
                     onTap: () => _toggleFavorite(context),
-                    child: Container(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.9),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.ink.withValues(alpha: 0.12),
-                            blurRadius: 6,
+                    excludeSemantics: true,
+                    child: GestureDetector(
+                      onTap: () => _toggleFavorite(context),
+                      child: Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.9),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.ink.withValues(alpha: 0.12),
+                              blurRadius: 6,
+                            ),
+                          ],
+                        ),
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 180),
+                          transitionBuilder: (child, animation) =>
+                              ScaleTransition(scale: animation, child: child),
+                          child: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            key: ValueKey(isFavorite),
+                            color: isFavorite
+                                ? AppColors.terracotta
+                                : AppColors.mutedInk,
+                            size: 18,
                           ),
-                        ],
-                      ),
-                      child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 180),
-                        transitionBuilder: (child, animation) =>
-                            ScaleTransition(scale: animation, child: child),
-                        child: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          key: ValueKey(isFavorite),
-                          color: isFavorite
-                              ? AppColors.terracotta
-                              : AppColors.mutedInk,
-                          size: 18,
                         ),
                       ),
                     ),

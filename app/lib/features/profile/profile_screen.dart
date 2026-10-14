@@ -109,32 +109,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Positioned(
                             right: -2,
                             bottom: -2,
-                            child: GestureDetector(
+                            child: Semantics(
+                              container: true,
+                              button: true,
+                              label: 'Сменить фото профиля',
                               onTap: _isUploadingPhoto ? null : _changePhoto,
-                              child: Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.leaf,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 2,
+                              excludeSemantics: true,
+                              child: GestureDetector(
+                                onTap: _isUploadingPhoto ? null : _changePhoto,
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.leaf,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2,
+                                    ),
                                   ),
-                                ),
-                                child: _isUploadingPhoto
-                                    ? const Padding(
-                                        padding: EdgeInsets.all(6),
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
+                                  child: _isUploadingPhoto
+                                      ? const Padding(
+                                          padding: EdgeInsets.all(6),
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : const Icon(
+                                          Icons.camera_alt,
                                           color: Colors.white,
+                                          size: 16,
                                         ),
-                                      )
-                                    : const Icon(
-                                        Icons.camera_alt,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
+                                ),
                               ),
                             ),
                           ),

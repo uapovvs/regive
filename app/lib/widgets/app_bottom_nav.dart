@@ -139,12 +139,17 @@ class _AddButton extends StatelessWidget {
           ),
         ],
       ),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          customBorder: const CircleBorder(),
-          onTap: onTap,
-          child: const Icon(Icons.add, color: Colors.white, size: 28),
+      child: Semantics(
+        button: true,
+        label: 'Добавить объявление',
+        excludeSemantics: true,
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: onTap,
+            child: const Icon(Icons.add, color: Colors.white, size: 28),
+          ),
         ),
       ),
     );
@@ -164,19 +169,25 @@ class _NavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      type: MaterialType.transparency,
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: onTap,
-        child: Center(
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            child: Icon(
-              selected ? item.activeIcon : item.icon,
-              key: ValueKey(selected),
-              color: selected ? Colors.white : AppColors.mutedInk,
-              size: 24,
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: item.label,
+      excludeSemantics: true,
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onTap,
+          child: Center(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: Icon(
+                selected ? item.activeIcon : item.icon,
+                key: ValueKey(selected),
+                color: selected ? Colors.white : AppColors.mutedInk,
+                size: 24,
+              ),
             ),
           ),
         ),

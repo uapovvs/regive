@@ -125,6 +125,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
         actions: [
           if (item != null && session.user?.id == item.ownerId)
             IconButton(
+              tooltip: 'Изменить объявление',
               icon: const Icon(Icons.edit_outlined),
               onPressed: () =>
                   Navigator.of(context)
@@ -135,6 +136,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
             ),
           if (item != null && session.user?.id == item.ownerId)
             IconButton(
+              tooltip: 'Удалить объявление',
               icon: const Icon(Icons.delete_outline),
               onPressed: _isActing ? null : _delete,
             ),
@@ -191,6 +193,9 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                 ),
               ),
               IconButton(
+                tooltip: isFavorite
+                    ? 'Убрать из избранного'
+                    : 'Добавить в избранное',
                 icon: Icon(
                   isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: AppColors.terracotta,

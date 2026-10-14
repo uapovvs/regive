@@ -108,6 +108,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     labelText: 'Пароль',
                     prefixIcon: const Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
+                      tooltip: _obscurePassword
+                          ? 'Показать пароль'
+                          : 'Скрыть пароль',
                       icon: Icon(
                         _obscurePassword
                             ? Icons.visibility_outlined

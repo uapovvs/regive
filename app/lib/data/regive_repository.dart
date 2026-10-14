@@ -179,16 +179,18 @@ class ReGiveRepository {
   /// Забрать вещь: в одной транзакции меняем статус и создаём запись в истории,
   /// чтобы два пользователя не смогли забрать одну вещь одновременно.
   Future<void> claimItem(String itemId, {required String receiverName}) {
-    return _guard(
-      () => _db.runTransaction((tx) async {
+    return _guard(() async {
+      // Причину отказа возвращаем из транзакции, а не бросаем внутри неё:
+      // в веб-версии Firestore исключение из обработчика приходит обёрнутым.
+      final refusal = await _db.runTransaction<String?>((tx) async {
         final ref = _items.doc(itemId);
         final snapshot = await tx.get(ref);
-        if (!snapshot.exists) throw const AppException('Вещь не найдена');
+        if (!snapshot.exists) return 'Вещь не найдена';
 
         final item = ThingItem.fromDoc(snapshot);
-        if (!item.isAvailable) throw const AppException('Эту вещь уже забрали');
+        if (!item.isAvailable) return 'Эту вещь уже забрали';
         if (item.ownerId == _uid) {
-          throw const AppException('Нельзя забрать собственное объявление');
+          return 'Нельзя забрать собственное объявление';
         }
 
         tx.update(ref, {'status': ItemStatus.claimed});
@@ -201,8 +203,10 @@ class ReGiveRepository {
           'receiverName': receiverName,
           'createdAt': FieldValue.serverTimestamp(),
         });
-      }),
-    );
+        return null;
+      });
+      if (refusal != null) throw AppException(refusal);
+    });
   }
 
   // ---------- Избранное ----------

@@ -144,90 +144,94 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                       ?.copyWith(fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 8),
-                GestureDetector(
-                  onTap: _pickImage,
-                  child: Container(
-                    height: 180,
-                    width: double.infinity,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color: AppColors.leaf.withValues(alpha: 0.08),
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(
-                        color: _imageBytes == null
-                            ? AppColors.line
-                            : AppColors.leaf,
+                Semantics(
+                  button: true,
+                  label: 'Выбрать фото вещи',
+                  child: GestureDetector(
+                    onTap: _pickImage,
+                    child: Container(
+                      height: 180,
+                      width: double.infinity,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        color: AppColors.leaf.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(
+                          color: _imageBytes == null
+                              ? AppColors.line
+                              : AppColors.leaf,
+                        ),
                       ),
-                    ),
-                    child: _imageBytes == null
-                        ? (_isEditing &&
-                                  widget.existingItem!.imageUrl.isNotEmpty
-                              ? Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    AppImage(
-                                      url: widget.existingItem!.imageUrl,
-                                      placeholder: const SizedBox.shrink(),
-                                    ),
-                                    Positioned(
-                                      right: 8,
-                                      bottom: 8,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(6),
-                                        decoration: const BoxDecoration(
-                                          color: Colors.black54,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: const Icon(
-                                          Icons.edit_outlined,
-                                          color: Colors.white,
-                                          size: 18,
+                      child: _imageBytes == null
+                          ? (_isEditing &&
+                                    widget.existingItem!.imageUrl.isNotEmpty
+                                ? Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      AppImage(
+                                        url: widget.existingItem!.imageUrl,
+                                        placeholder: const SizedBox.shrink(),
+                                      ),
+                                      Positioned(
+                                        right: 8,
+                                        bottom: 8,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(6),
+                                          decoration: const BoxDecoration(
+                                            color: Colors.black54,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: const Icon(
+                                            Icons.edit_outlined,
+                                            color: Colors.white,
+                                            size: 18,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              : Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.add_a_photo_outlined,
-                                      color: AppColors.leafDark,
-                                      size: 32,
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      _isEditing
-                                          ? 'Нажмите, чтобы заменить фото'
-                                          : 'Добавьте фото (обязательно)',
-                                      style: const TextStyle(
-                                        color: AppColors.mutedInk,
+                                    ],
+                                  )
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.add_a_photo_outlined,
+                                        color: AppColors.leafDark,
+                                        size: 32,
                                       ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        _isEditing
+                                            ? 'Нажмите, чтобы заменить фото'
+                                            : 'Добавьте фото (обязательно)',
+                                        style: const TextStyle(
+                                          color: AppColors.mutedInk,
+                                        ),
+                                      ),
+                                    ],
+                                  ))
+                          : Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Image.memory(_imageBytes!, fit: BoxFit.cover),
+                                Positioned(
+                                  right: 8,
+                                  bottom: 8,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: const BoxDecoration(
+                                      color: Colors.black54,
+                                      shape: BoxShape.circle,
                                     ),
-                                  ],
-                                ))
-                        : Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              Image.memory(_imageBytes!, fit: BoxFit.cover),
-                              Positioned(
-                                right: 8,
-                                bottom: 8,
-                                child: Container(
-                                  padding: const EdgeInsets.all(6),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.black54,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.edit_outlined,
-                                    color: Colors.white,
-                                    size: 18,
+                                    child: const Icon(
+                                      Icons.edit_outlined,
+                                      color: Colors.white,
+                                      size: 18,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 18),
