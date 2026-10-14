@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "358234028999",
+    "project_id": "regive-uapov-45",
+    "storage_bucket": "regive-uapov-45.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358234028999:android:ad71a1db511339ca0637e2",
+        "android_client_info": {
+          "package_name": "com.regive.regive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsgA4YN6DlXL4rqY-yvUaHoBW6oi2LsYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
