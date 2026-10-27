@@ -15,24 +15,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fix macOS rsync for Flutter SPM
-        run: |
-          brew unlink rsync || true
-          echo "/usr/bin" >> $GITHUB_PATH
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
 
+      # flutter pub get rsyncs SwiftPM plugins into build/<platform>/SourcePackages,
+      # and rsync can't create the missing parent on a fresh checkout.
+      - name: Prepare SwiftPM build directories
+        working-directory: app
+        run: mkdir -p build/ios/SourcePackages build/macos/SourcePackages
+
       - name: Install dependencies
         working-directory: app
         run: flutter pub get
-
-      - name: Prepare iOS build directories
-        working-directory: app
-        run: mkdir -p build/ios/SourcePackages
 
       - name: Build iOS Application (Release, Unsigned)
         working-directory: app
