@@ -64,8 +64,8 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDbD-ofpxVEvLvWoKN4sRwCsJ153j-D7ZU',
-    appId: '1:358234028999:web:3b90fed7801b4d0a0637e2',
+    apiKey: 'AIzaSyCtFyLlUEV15iSnfNbTwTCEOU7iI9qcaoE',
+    appId: '1:358234028999:ios:52460952576a6d9d0637e2',
     messagingSenderId: '358234028999',
     projectId: 'regive-uapov-45',
     storageBucket: 'regive-uapov-45.firebasestorage.app',
